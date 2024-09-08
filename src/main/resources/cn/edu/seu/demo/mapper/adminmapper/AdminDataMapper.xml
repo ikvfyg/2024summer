@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.seu.demo.mapper.AdminMapper.AdminDataMapper">
+<!--    <resultMap id="classifyCountMap" type="java.util.Map">-->
+<!--        <id column="classify_id" property="key"/>-->
+<!--        <result column="total_count" property="value"/>-->
+<!--    </resultMap>-->
+
+<!--    <select id="getNewsCountMap" resultMap="classifyCountMap">-->
+<!--        SELECT classify_id, COUNT(*) AS total_count-->
+<!--        FROM news-->
+<!--        GROUP BY classify_id-->
+<!--    </select>-->
+</mapper>

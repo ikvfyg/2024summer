@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.seu.demo.mapper.UserMapper.UserNewsRecommendMapper">
+    <!--    设置偏好分类-->
+    <!--    <insert id="SetPreferenceClassify">-->
+    <!--        INSERT INTO user_classify (user_id, classify_id)-->
+    <!--        VALUES-->
+    <!--        <foreach collection="classifyList" item="classify" separator="," open="" close="">-->
+    <!--            (#{userId}, #{classify.id})-->
+    <!--        </foreach>-->
+    <!--    </insert>-->
+
+<!--    <select id="GetAllButBlackRecommend" parameterType="map" resultType="cn.edu.seu.demo.pojo.NoContentNews">-->
+<!--        select * from news where classify_id in-->
+<!--        <foreach collection="filteredIds" item="classify" separator="," open="(" close=")">-->
+<!--            #{classify}-->
+<!--        </foreach>-->
+<!--        ORDER BY id DESC-->
+<!--        LIMIT #{pagesize}-->
+<!--    </select>-->
+    <select id="GetOneClassifyRecommend" parameterType="map" resultType="cn.edu.seu.demo.pojo.NoContentNews">
+        select * from news where classify_id=#{classifyId}
+        <if test="startId != null"> <!-- 如果 startId 不为空，则添加 id < #{startId} -->
+            and id &lt; #{startId}
+        </if>
+        and summary is not null and summary !=''
+        ORDER BY id DESC
+        LIMIT #{pagesize}
+    </select>
+    <insert id="SetUserBlackList">
+        insert into black_list (user_id, classify_id) VALUES
+        <foreach collection="blackList" item="blackItem" separator="," open="" close="">
+            (#{userId},#{blackItem})
+        </foreach>
+    </insert>
+    <select id="GetAllButBlackRecommend" parameterType="map" resultType="cn.edu.seu.demo.pojo.NoContentNews">
+        SELECT * FROM news
+        WHERE
+        classify_id IN
+        <foreach collection="filteredIds" item="classify" separator="," open="(" close=")">
+            #{classify}
+        </foreach>
+        <if test="startId != null"> <!-- 如果 startId 不为空，则添加 id < #{startId} -->
+            and id &lt; #{startId}
+        </if>
+        and summary is not null and summary !=''
+        ORDER BY id DESC
+        LIMIT #{pagesize}
+    </select>
+</mapper>

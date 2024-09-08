@@ -1,0 +1,38 @@
+##下面这些内容是为了让MyBatis映射
+##指定Mybatis的Mapper文件
+#  mybatis.mapper-locations=classpath:mappers/*xml
+#  #指定Mybatis的实体目录
+#  mybatis.type-aliases-package=com.itheima.mybatis.entity
+#  # 应用服务 WEB 访问端口
+#  server.port=8080
+server:
+  port: 8000
+spring:
+  #数据库连接信息
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://0.0.0.0:3306/demo
+    username: root
+    password: 1234
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  #其它配置文件信息
+
+#Mybatis配置
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+##spring事务管理日志
+#logging:
+#
+#  level:
+#    org.springframework.jdbc.support.JdbcTransactionManager: debug
+
+#JWT令牌公钥和有效时间
+#jwt:
+#  signKey: "CsoU9KZy96MNRYAt5BDygHqcTH28NKtfwb5I5gAxe5yPwdhxbRSCehTFqTrBUFy3k6hd8DTKg20Ul0jFg5b8ulK30EgtUH6XxK4pEHQZeqb1z7dlvWTydE80TlLjLVKd4SWNR9TuJemrReAfdw5Uzq4GRSNlhCV0WqsXHAIz62tkBYhlqycqp8zeu7kNDtzT5mboOxWa1tPtLeFwj5bIk5Ljsb4kokPzvmWyYFTCqY5ov5b4xbXkMiaENbzoB936"
+#  expire: 3600000
+
