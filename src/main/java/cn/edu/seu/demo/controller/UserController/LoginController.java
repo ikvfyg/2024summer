@@ -96,6 +96,7 @@ public class LoginController {
             loginService.register(user);
             //下发 JWT 令牌
             Map<String, Object> claims = new HashMap<>();
+            claims.put("role","user");
             claims.put("id", user.getId());
             claims.put("phoneNumber", user.getPhoneNumber());
             claims.put("username", user.getUsername());

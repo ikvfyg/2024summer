@@ -3,6 +3,7 @@ package cn.edu.seu.demo.intercepter;
 import cn.edu.seu.demo.pojo.Result;
 import cn.edu.seu.demo.utils.JwtUtils;
 import com.alibaba.fastjson.JSONObject;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,29 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         }
         //5.解析token
         try {
-            JwtUtils.parseJWT(jwt);
+            Claims claims = JwtUtils.parseJWT(jwt);
+            // 从claims中获取userId
+            String role = (String) claims.get("role");
+            String requestURI = request.getRequestURI();
+
+            // 区分不同角色的权限
+            if (requestURI.startsWith("/admin") && !"admin".equals(role)) {
+                log.info("权限不足，返回禁止访问错误信息");
+                Result error = Result.error("FORBIDDEN");  // 使用 "FORBIDDEN" 表示权限不足
+                //手动转换为json
+                String notLogin=JSONObject.toJSONString(error);
+                response.getWriter().write(notLogin);
+                return false;
+            }
+
+            if (requestURI.startsWith("/user") && !"user".equals(role)) {
+                log.info("权限不足，返回禁止访问错误信息");
+                Result error = Result.error("FORBIDDEN");  // 使用 "FORBIDDEN" 表示权限不足
+                //手动转换为json
+                String notLogin=JSONObject.toJSONString(error);
+                response.getWriter().write(notLogin);
+                return false;
+            }
         }
         catch (Exception e){
             e.printStackTrace();

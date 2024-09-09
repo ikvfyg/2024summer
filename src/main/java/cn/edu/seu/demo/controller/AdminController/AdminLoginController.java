@@ -50,6 +50,7 @@ public class AdminLoginController {
         if(admin != null){
             //下发 JWT 令牌
             Map<String, Object> claims = new HashMap<>();
+            claims.put("role","admin");
             claims.put("id", admin.getId());
             claims.put("username", admin.getUsername());
 
