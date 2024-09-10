@@ -13,19 +13,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static cn.edu.seu.demo.utils.SentenceChecker.isSentenceComplete;
+
 @Component
 public class MySystem {
     @Autowired
     private MySystemMapper systemMapper;
 
     public void GenerateSummary(Integer size) throws Exception {
+        int maxAttempts = 5;  // 最大循环次数
+        int attempts = 0;     // 当前循环次数
         List<RawNews> rawNewsList = systemMapper.GetNonSummarizedNews(size);
         for (int i = 0; i < rawNewsList.size(); i++) {
+            attempts=0;
             RawNews news = rawNewsList.get(i);
             String question = news.getContent();
             String response = ChatClient.systemllama3(question);
-            while (response.length() <= 10) {
+            while (response.length() <= 10||!isSentenceComplete(response)&&attempts < maxAttempts) {
                 response = ChatClient.systemllama3(question);
+                attempts++;
             }
             news.setSummary(response);
             systemMapper.SetSummary(news);

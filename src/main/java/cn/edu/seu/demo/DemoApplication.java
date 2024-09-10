@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@EnableScheduling
+//@EnableScheduling
 @ServletComponentScan//开启了servlet组件的支持
 @SpringBootApplication//(exclude= {DataSourceAutoConfiguration.class})
 public class DemoApplication {

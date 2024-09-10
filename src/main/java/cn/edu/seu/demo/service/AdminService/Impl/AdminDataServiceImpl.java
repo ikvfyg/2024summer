@@ -59,7 +59,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 
     @Override
     public Map<LocalDate, Integer> GetNewsCountWeekly() {
-        List<Map<String, Object>> results = adminDataMapper.getDailyNewsCounts();
+        List<Map<String, Object>> results = adminDataMapper.GetDailyNewsCounts();
         return results.stream().collect(Collectors.toMap(
                 entry -> ((Date) entry.get("date")).toLocalDate(), // 将 java.sql.Date 转换为 LocalDate
                 entry -> ((Long) entry.get("total_count")).intValue(),
@@ -70,7 +70,7 @@ public class AdminDataServiceImpl implements AdminDataService {
 
     @Override
     public Map<LocalDate, Integer> GetChatCountWeekly() {
-        List<Map<String, Object>> results = adminDataMapper.getDailyChatCounts();
+        List<Map<String, Object>> results = adminDataMapper.GetDailyChatCounts();
         return results.stream().collect(Collectors.toMap(
                 entry -> ((Date) entry.get("date")).toLocalDate(), // 将 java.sql.Date 转换为 LocalDate
                 entry -> ((Long) entry.get("total_count")).intValue(),

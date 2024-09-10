@@ -27,12 +27,12 @@ public interface AdminDataMapper {
             "WHERE datetime >= NOW() - INTERVAL 7 DAY " +
             "GROUP BY DATE(datetime) " +
             "ORDER BY DATE(datetime)")
-    List<Map<String, Object>> getDailyNewsCounts();
+    List<Map<String, Object>> GetDailyNewsCounts();
 
     @Select("SELECT DATE(datetime) AS date, COUNT(*) AS total_count " +
             "FROM history_text " +
             "WHERE datetime >= NOW() - INTERVAL 7 DAY " +
             "GROUP BY DATE(datetime) " +
             "ORDER BY DATE(datetime) ")
-    List<Map<String, Object>> getDailyChatCounts();
+    List<Map<String, Object>> GetDailyChatCounts();
 }

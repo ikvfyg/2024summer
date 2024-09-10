@@ -32,8 +32,8 @@ public class AdminLoginController {
         log.info("登录尝试来自IP: " + request.getRemoteAddr());
 
         if(loginData == null) {
-            log.warn("用户登录时请求体为空: " + request.getRemoteAddr());
-            return Result.error("用户名或密码不能为空");
+            log.warn("管理员登录时请求体为空: " + request.getRemoteAddr());
+            return Result.error("管理员名或密码不能为空");
         }
 
         String username = loginData.getUsername();
@@ -41,8 +41,8 @@ public class AdminLoginController {
 
         //输入有效性检查
         if(username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()){
-            log.warn("用户名或密码为空: " + request.getRemoteAddr());
-            return Result.error("用户名或密码不能为空");
+            log.warn("管理员名或密码为空: " + request.getRemoteAddr()+username+password);
+            return Result.error("管理员名或密码不能为空");
         }
 
         //转到业务层验证
@@ -55,13 +55,13 @@ public class AdminLoginController {
             claims.put("username", admin.getUsername());
 
             String jwt = JwtUtils.generateJwt(claims);  //缺陷: 此处如果user为学生, payload中不包含classId
-            log.info("用户登录成功: " + admin.getId());
+            log.info("管理员登录成功: " + admin.getId());
             return Result.success(jwt);
         }
 
         else {
-            log.warn("用户名或密码错误");
-            return Result.error("用户名或密码错误");
+            log.warn("管理员名或密码错误");
+            return Result.error("管理员名或密码错误");
         }
     }
 }
